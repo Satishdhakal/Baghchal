@@ -1,29 +1,40 @@
-import { ReactNode, createContext, useState } from "react";
+import React, { createContext, ReactNode, useRef, useEffect } from "react";
+import { Game } from "./baghchal/game";
 
-type Props = {
-  highlightElems: Array<any>;
+interface Props {
   handleClick: () => void;
+  handleNewGame: () => void;
+}
+
+const defaultProps: Props = {
+  handleClick: () => {},
+  handleNewGame: () => {},
 };
 
-const defaultProps = { 
-    highlightElems: [],
-    handleClick: () => {}
-} as Props
-
-export const GameContext = createContext(defaultProps);
+export const GameContext = createContext<Props>(defaultProps);
 
 export const GameProvider = ({ children }: { children: ReactNode }) => {
-  const [highlightElems, setHighlightElems] = useState([[], [], []]);
+  const game = useRef<Game | null>(null);
 
-  function handleClick() {
+  useEffect(() => {
+    game.current = new Game();
+  }, []);  
+
+  const handleClick = () => {
     console.log("HOLD ON 🤚");
+  }
+
+  const handleNewGame = () => {
+    if (game.current) {
+      game.current.startGame(); 
+    }
   }
 
   return (
     <GameContext.Provider
       value={{
-        highlightElems,
         handleClick,
+        handleNewGame,
       }}
     >
       {children}

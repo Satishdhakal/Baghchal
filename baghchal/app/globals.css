@@ -31,6 +31,17 @@ body {
   }
 }
 
+.tiger {
+  will-change: margin;
+  position: absolute;
+  transition: margin 0.17s ease-in-out;
+  width: 14.5%;
+  height: 14.5%;
+  color: white;
+  transform: translate(-37%, -40%);
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  background-color: red;
+}
 
 .game-container {
   display: flex;
@@ -74,10 +85,10 @@ body {
 
 /* positioning each node  and also ajdancet paths :( */
 .Node-0,
+.tiger-0,
 .Path-0-1,
 .Path-0-5,
 .Path-0-6 {
-
   margin-top: calc(0 * var(--factor1));
   margin-left: calc(0* var(--factor1));
 }
@@ -138,6 +149,7 @@ body {
 
 
 .Node-4,
+.tiger-4,
 .Path-4-9,
 .Path-4-8 {
   margin-top: calc(0 * var(--factor1));
@@ -384,7 +396,9 @@ body {
 
 
 
+
 .Node-20,
+.tiger-20,
 .Path-20-21 {
   margin-top: calc(4 * var(--factor1));
   margin-left: calc(0* var(--factor1));
@@ -412,10 +426,12 @@ body {
 }
 
 
-.Node-24 {
+.Node-24,
+.tiger-24 {
   margin-top: calc(4 * var(--factor1));
   margin-left: calc(4* var(--factor1));
 }
+
 
 /* vertical paths */
 .Path-0-5,
