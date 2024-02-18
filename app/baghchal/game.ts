@@ -50,7 +50,6 @@ export class Game {
     //removing tigers and goats of previous game if any
     this.parent = document.querySelector(".game-container-inner");
 
-    console.log(this.parent);
     //removing tigers
     let removeEle = document.querySelectorAll(".tiger");
     if (removeEle) {
@@ -77,4 +76,10 @@ export class Game {
       this.parent.appendChild(elem);
     });
   }
+
+  // Getting turn status
+  getBoardStatus(){
+    return [this.tigers,this.goats,this.turn];
+  }
+
 }
