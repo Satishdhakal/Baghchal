@@ -5,7 +5,6 @@ const roboto = Roboto_Condensed({ subsets: ["latin"] });
 import { Game } from "./baghchal/game";
 import Canvas from "@/components/game";
 import { GameProvider } from "./context/gameContex";
-import Navbar from "@/components/Navbar";
 import Intro from "@/components/Intro";
 
 
@@ -16,14 +15,12 @@ export default function Home() {
   }
   return (
     <>
-      <Navbar clickhome={getdata}/>
-
       { !toggleGame &&
-      <Intro onsubmit={getdata}/>
+        <Intro onsubmit={getdata}/>
       }
 
       { toggleGame &&
-      <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-slate-950">
+      <main className="flex h-screen flex-col items-center justify-between p-24 bg-slate-950">
         <div className={roboto.className}>
           <GameProvider>
             <Canvas />
