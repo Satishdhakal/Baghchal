@@ -1,64 +1,46 @@
-import React, {
-  createContext,
-  ReactNode,
-  useRef,
-  useEffect,
-  useState,
-} from "react";
+import React, { createContext, ReactNode, useEffect, useRef, useState } from "react";
 import { Game } from "../baghchal/game";
 
 interface Props {
   handleClick: (pos: number) => void;
   handleNewGame: () => void;
-  statusArr: (number | {
-    pos: number[];
-    trapStatus: number[];
-    available?: any;
-    onBoard?: any;
-    eaten?: any;
-  } | {
-    available: number[];
-    onBoard: null[];
-    eaten: null[];
-    pos: null[];
-    trapStatus?: any;
-})[]
+  isPlaying: boolean;
+  statusArr: (
+    | {
+        pos: number[];
+        trapStatus: number[];
+        available?: number[];
+        onBoard?: number[];
+        eaten?: number[];
+      }
+    | number
+  )[];
+  highlightElems: number[][];
 }
 
 const defaultProps: Props = {
   handleClick: () => {},
   handleNewGame: () => {},
+  isPlaying: false,
   statusArr: [
-    {
-      pos: [0, 4, 20, 24],
-      trapStatus: [0, 0, 0, 0],
-    },
     {
       available: [],
       onBoard: [],
       eaten: [],
       pos: [],
+      trapStatus: [0, 0, 0, 0],
     },
     -1,
   ],
+  highlightElems: [[], [], []],
 };
 
 export const GameContext = createContext<Props>(defaultProps);
 
 export const GameProvider = ({ children }: { children: ReactNode }) => {
-  const [statusArr, setStatusArr] = useState([
-    {
-      pos: [0, 4, 20, 24],
-      trapStatus: [0, 0, 0, 0],
-    },
-    {
-      available: Array.from(Array(20).keys()),
-      onBoard: [],
-      eaten: [],
-      pos: [],
-    },
-    -1,
-  ]);
+  const [statusArr, setStatusArr] = useState<Props["statusArr"]>(defaultProps.statusArr);
+  const [highlightElems, setHighlightElems] = useState<Props["highlightElems"]>(defaultProps.highlightElems);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const game = useRef<Game | null>(null);
 
@@ -67,17 +49,22 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const handleClick = (pos: number) => {
-
-    if(game.current){
-      game.current.updateGoat(pos)
+    if (game.current) {
+      game.current.updateGoat(pos);
     }
-
   };
 
+
+  // This function handles the new game
+  // Remove the goats and tiger from the previous game
+  // Reset the highlight nodes 
+
   const handleNewGame = () => {
+    setIsPlaying(true);
     if (game.current) {
-      game.current.startGame();
+      setHighlightElems([[], [], []]);
       setStatusArr(game.current.getBoardStatus());
+      setHighlightElems(game.current.startGame());
     }
   };
 
@@ -87,6 +74,8 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
         handleClick,
         handleNewGame,
         statusArr,
+        highlightElems,
+        isPlaying,
       }}
     >
       {children}

@@ -1,86 +1,53 @@
-import React, { useContext, FC } from "react";
+import React, { useContext } from "react";
 import { GameContext } from "@/app/context/gameContex";
+import { paths } from "@/lib/path";
 
-//main game element
-const Canvas: FC = () => {
-  const { handleNewGame, handleClick, statusArr } = useContext(GameContext);
+// Main game element
+const Canvas = () => {
+  const { handleNewGame, handleClick, statusArr, highlightElems, isPlaying } =
+    useContext(GameContext);
 
-  let nodes = Array.from(Array(25).keys());
-  let paths = [
-    "0-1",
-    "1-2",
-    "2-3",
-    "3-4", //horizontal paths
-    "5-6",
-    "6-7",
-    "7-8",
-    "8-9",
-    "10-11",
-    "11-12",
-    "12-13",
-    "13-14",
-    "15-16",
-    "16-17",
-    "17-18",
-    "18-19",
-    "20-21",
-    "21-22",
-    "22-23",
-    "23-24",
+  // Destructure highlightElems
+  let [highlightPaths, highlightNodes, endangeredNodes] = highlightElems;
 
-    "0-5",
-    "5-10",
-    "10-15",
-    "15-20", //vertical paths
-    "1-6",
-    "6-11",
-    "11-16",
-    "16-21",
-    "2-7",
-    "7-12",
-    "12-17",
-    "17-22",
-    "3-8",
-    "8-13",
-    "13-18",
-    "18-23",
-    "4-9",
-    "9-14",
-    "14-19",
-    "19-24",
+  // Define types for nodes and paths
+  let nodes: number[] = Array.from(Array(25).keys());
 
-    "0-6",
-    "6-12",
-    "12-18",
-    "18-24", //diagonal paths (main diagonal)
-    "4-8",
-    "8-12",
-    "12-16",
-    "16-20",
-
-    "2-8",
-    "8-14",
-    "14-18",
-    "18-22", //diagonal path (other digonal)
-    "2-6",
-    "6-10",
-    "10-16",
-    "16-22",
-  ];
+  // Extract focusableNodes from statusArr
+  let focusableNodes: number[] = [];
+  if (Array.isArray(statusArr[0]) && "pos" in statusArr[0]) {
+    focusableNodes = statusArr[0]["pos"];
+  } else if (Array.isArray(statusArr[1]) && "pos" in statusArr[1]) {
+    focusableNodes = statusArr[1]["pos"];
+  }
 
   return (
     <>
       <main className="flex flex-row flex-wrap gap-8 items-center">
-
         <div className="game-container">
           <div className="game-container-inner">
-            {/* this code render node in dom */}
             {nodes.map((node) => {
-              let classname = `Node Node-${String(node)}`;
+              let className = `Node Node-${String(node)}`;
+
+              if (highlightNodes.includes(node)) {
+                className = `Node Node-${String(
+                  node
+                )} highlight-safe pointer-cursor`;
+              }
+
+              if (focusableNodes.includes(node)) {
+                className = `Node Node-${String(
+                  node
+                )} highlight-safe pointer-cursor`;
+              }
+
+              if (endangeredNodes.includes(node)) {
+                className = `Node Node-${String(node)} highlight-danger`;
+              }
 
               return (
                 <div
-                  className={classname}
+                  className={className}
                   key={node}
                   onClick={() => {
                     handleClick(node);
@@ -88,11 +55,15 @@ const Canvas: FC = () => {
                 ></div>
               );
             })}
-            {paths.map((path) => {
-              let classname = `Path Path-${String(path)}`;
-              return (
-                <div className={classname} key={paths.indexOf(path)}></div>
-              );
+
+            {paths.map((path: any) => {
+              let className = `Path Path-${String(path)}`;
+
+              if (highlightPaths.includes(path)) {
+                className = `${className} highlight-safe`;
+              }
+
+              return <div className={className} key={path}></div>;
             })}
           </div>
         </div>
@@ -103,14 +74,18 @@ const Canvas: FC = () => {
             data-ripple-light="true"
             onClick={() => handleNewGame()}
           >
-            New Game!
+            { isPlaying? "Play Again" : "New Game!"}
           </button>
-          <div>
-            <div className="text-center">
-              <h3 className="text-5xl">Turn</h3>
-              {statusArr[2] ? <p>GOAT</p> : <p>TIGER</p>}
+          {
+            isPlaying &&
+            <div>
+              <div className="text-center">
+                <h3 className="text-5xl">Turn</h3>
+                {/* Determine the turn based on statusArr */}
+                {Array.isArray(statusArr[2]) ? <p>TIGER</p> : <p>GOAT</p>}
+              </div>
             </div>
-          </div>
+          }
         </div>
       </main>
     </>

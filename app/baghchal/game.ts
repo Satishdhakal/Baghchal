@@ -42,6 +42,8 @@ export class Game {
     this.moveHistory = [];
   }
 
+  //this class is responsible for handling parents of the current game 
+  //in other words this class determines the parent of game
   setParent() {
     this.parent = document.querySelector(".canvas-container-inner");
   }
@@ -75,24 +77,128 @@ export class Game {
       elem.style.zIndex = "1";
       this.parent.appendChild(elem);
     });
+
+    this.getValidMoves()
+
+    return this.highlightNodes();
   }
 
   // Getting turn status
-  getBoardStatus(){
-    return [this.tigers,this.goats,this.turn];
+  getBoardStatus() {
+    return [this.tigers, this.goats, this.turn];
   }
 
+
+  //This places the goat on the board
+  //pos parameter is the position of the goat
   updateGoat(pos: number) {
 
     let elem = document.createElement('div');
 
-    elem.classList.add('goat',`goat-${pos}`);
+    elem.classList.add('goat', `goat-${pos}`);
     elem.style.marginTop = `${Math.floor(pos/5)*21.5}%`;
     elem.style.marginLeft = `${(pos%5)*21.5}%`;
-        
+
     elem.style.zIndex = "1";
     this.parent.appendChild(elem);
 
+  }
+
+  highlightNodes(computingValidMoves = false) {
+    let possibleNodes = [];
+    if (this.turn === 1 || computingValidMoves) {
+      for (let i = 0; i < 5; i++) {
+        for (let j = 0; j < 5; j++) {
+          if (this.board[i][j] === null) {
+            possibleNodes.push(i * 5 + j);
+          }
+        }
+      }
+    }
+    this.prevSuggestions = possibleNodes;
+    return [
+      [], possibleNodes, []
+    ];
+  }
+
+  highlightPath(pos: number, chkTigerValidMoves = false) {
+    const possiblePaths: string[] = [];
+    const possibleNodes: number[] = [];
+    const endangeredGoats: number[] = [];
+
+    const possibleMoves: number[][] = pos % 2 === 0 ? [
+      [pos - 1, pos + 1], // left, right
+      [pos + 5, pos + 4, pos + 6], // bottom, bottom-left, bottom-right
+      [pos - 5, pos - 6, pos - 4], // top, top-left, top-right
+    ] : [
+      [pos - 1, pos + 1],
+      [pos + 5],
+      [pos - 5]
+    ];
+
+    const isSafeToMove = (from: number, to: number) => {
+      const [fromRow, fromCol] = [Math.floor(from / 5), from % 5];
+      const [toRow, toCol] = [Math.floor(to / 5), to % 5];
+
+      return fromRow === toRow || fromCol === toCol || Math.abs(fromRow - toRow) === Math.abs(fromCol - toCol);
+    };
+
+    for (const moves of possibleMoves) {
+      for (const move of moves) {
+        if (move < 0 || move > 24) continue;
+        if (!isSafeToMove(pos, move)) continue;
+
+        if (!this.board[Math.floor(move / 5)][move % 5]) {
+          possibleNodes.push(move);
+          possiblePaths.push(`${Math.min(pos, move)}-${Math.max(pos, move)}`);
+        } else if (this.board[Math.floor(move / 5)][move % 5] === 1 && (this.turn === 0 || chkTigerValidMoves)) {
+          const goatPos = move;
+
+          const possibleJumps = [
+            pos - 1, pos + 1,
+            pos + 5, pos + 4, pos + 6,
+            pos - 5, pos - 4, pos - 6
+          ].filter(jump => jump >= 0 && jump <= 24 && isSafeToMove(pos, jump) && !this.board[Math.floor(jump / 5)][jump % 5]);
+
+          for (const jump of possibleJumps) {
+            const midGoatPos = (pos + jump) / 2;
+            if (midGoatPos < 0 || midGoatPos > 24 || !this.board[Math.floor(midGoatPos / 5)][midGoatPos % 5]) continue;
+
+            possibleNodes.push(midGoatPos);
+            possibleNodes.push(move);
+            possiblePaths.push(`${Math.min(pos, midGoatPos)}-${Math.max(pos, midGoatPos)}`);
+            possiblePaths.push(`${Math.min(midGoatPos, move)}-${Math.max(midGoatPos, move)}`);
+            endangeredGoats.push(midGoatPos);
+          }
+        }
+      }
+    }
+
+    this.prevSelection = pos;
+    this.prevSuggestions = possibleNodes;
+    return [possiblePaths, possibleNodes, endangeredGoats];
+  }
+
+  calculateValidGoateMoves() {
+    this.goats.validMoves = [];
+
+    if (this.goats.available.length) {
+      const tempArr = this.highlightNodes(true);
+      this.goats.validMoves.push(...tempArr[1].map(move => `g-${move}`));
+    } else {
+      for (const pos of this.goats.pos) {
+        const tempArr = this.highlightPath(pos, false);
+        this.goats.validMoves.push(...tempArr[1].map(move => `g-${pos}-${move}`));
+      }
+    }
+  }
+
+
+  getValidMoves() {
+    this.calculateValidGoateMoves();
+
+    if (this.turn)
+      return this.goats.validMoves;
   }
 
 }

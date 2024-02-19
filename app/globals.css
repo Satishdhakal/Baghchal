@@ -497,3 +497,8 @@ body {
   width: var(--factor1);
 
 }
+
+.highlight-safe {
+  box-shadow: 0px 0.7vmin 0.5vmin rgba(251, 146, 60, 1) !important;
+  box-shadow: none;
+}
