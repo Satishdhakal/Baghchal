@@ -82,4 +82,17 @@ export class Game {
     return [this.tigers,this.goats,this.turn];
   }
 
+  updateGoat(pos: number) {
+
+    let elem = document.createElement('div');
+
+    elem.classList.add('goat',`goat-${pos}`);
+    elem.style.marginTop = `${Math.floor(pos/5)*21.5}%`;
+    elem.style.marginLeft = `${(pos%5)*21.5}%`;
+        
+    elem.style.zIndex = "1";
+    this.parent.appendChild(elem);
+
+  }
+
 }

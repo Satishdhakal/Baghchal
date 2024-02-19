@@ -4,7 +4,7 @@ import { useRef, useEffect, useState } from "react";
 const roboto = Roboto_Condensed({ subsets: ["latin"] });
 import { Game } from "./baghchal/game";
 import Canvas from "@/components/game";
-import { GameProvider } from "./gameContex";
+import { GameProvider } from "./context/gameContex";
 import Navbar from "@/components/Navbar";
 import Intro from "@/components/Intro";
 

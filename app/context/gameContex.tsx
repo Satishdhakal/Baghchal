@@ -5,10 +5,10 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { Game } from "./baghchal/game";
+import { Game } from "../baghchal/game";
 
 interface Props {
-  handleClick: () => void;
+  handleClick: (pos: number) => void;
   handleNewGame: () => void;
   statusArr: (number | {
     pos: number[];
@@ -66,8 +66,12 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
     game.current = new Game();
   }, []);
 
-  const handleClick = () => {
-    console.log("HOLD ON 🤚");
+  const handleClick = (pos: number) => {
+
+    if(game.current){
+      game.current.updateGoat(pos)
+    }
+
   };
 
   const handleNewGame = () => {

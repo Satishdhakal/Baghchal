@@ -1,9 +1,9 @@
 import React, { useContext, FC } from "react";
-import { GameContext } from "@/app/gameContex";
+import { GameContext } from "@/app/context/gameContex";
 
 //main game element
 const Canvas: FC = () => {
-  const { handleNewGame, statusArr } = useContext(GameContext);
+  const { handleNewGame, handleClick, statusArr } = useContext(GameContext);
 
   let nodes = Array.from(Array(25).keys());
   let paths = [
@@ -82,9 +82,9 @@ const Canvas: FC = () => {
                 <div
                   className={classname}
                   key={node}
-                  // onClick={() => {
-                  //   handleClick(node);
-                  // }}
+                  onClick={() => {
+                    handleClick(node);
+                  }}
                 ></div>
               );
             })}
