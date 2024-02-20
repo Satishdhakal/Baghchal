@@ -1,4 +1,4 @@
-import "./rules.css"
+
 const page = () => {
   //left to make it mobile responsive
   return (
@@ -8,13 +8,13 @@ const page = () => {
           <h2 className="text-center p-2 text-orange-400 font-semibold text-3xl">RULES</h2>
       </div>
       <br /><br /><br />
-      <div className="float-right mr-40">
+      <div className="float-right mr-20">
         <h1 className="text-2xl text-orange-400">HOW TO PLAY</h1>
         <br></br>
         <h2 className="text-2xl"><strong>Game Components:</strong></h2>
         <ul>
           <li>- 4 Tigers and 20 Goats.</li>
-          <li>- Tigers can jump over goats if there's an empty place following the goat in a straight line.</li>
+          <li>- Tigers can jump over goats if there's an empty place following the goat <br/>in a straight line.</li>
         </ul>
         <br></br>
 
@@ -40,7 +40,6 @@ const page = () => {
         <br></br>
       </div>
 
-      <div className="border-l-8 fixed border-orange-400 vertical-line"></div> {/*Vertical Line*/}
 
       <div className="ml-40">
         <h1 className="text-2xl text-orange-400">ABOUT</h1>
