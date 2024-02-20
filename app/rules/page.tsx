@@ -1,37 +1,80 @@
+import "./rules.css"
 const page = () => {
+  //left to make it mobile responsive
   return (
     <>
-      {/* subtract navbar height (80px) to prevent overflow  */}
-      <div className="flex items-center justify-center h-[calc(100vh-80px)] w-screen">
-        <div className="bg-gray-800 w-9/12 text-center">
-          <h2 className="text-center p-2 text-orange-400 font-semibold text-3xl">Rules</h2>
-          <div>
-            <ol className="p-2 list-decimal list-inside">
-              <li className="pt-0 p-2">
-                They can move to an adjacent free position along the lines.
-              </li>
-              <li className="p-2">
-                They can capture goats during any move, and do not need to wait
-                until all goats are placed.
-              </li>
-              <li className="p-2">They can capture only one goat at a time.</li>
-              <li className="p-2">
-                They can jump over a goat in any direction, as long as there is
-                an open space for the tiger to complete its turn.
-              </li>
-              <li className="p-2">A tiger cannot jump over another tiger.</li>
-              <li className="p-2">
-                Goats cannot move until all goats have been positioned on the
-                board.{" "}
-              </li>
-              <li className="p-2">They must leave the board when captured.</li>
-              <li className="p-2">
-                They cannot jump over tigers or other goats.
-              </li>
-            </ol>
-          </div>
-        </div>
+      <div>
+          <br /><br /><br />
+          <h2 className="text-center p-2 text-orange-400 font-semibold text-3xl">RULES</h2>
       </div>
+      <br /><br /><br />
+      <div className="float-right mr-40">
+        <h1 className="text-2xl text-orange-400">HOW TO PLAY</h1>
+        <br></br>
+        <h2 className="text-2xl"><strong>Game Components:</strong></h2>
+        <ul>
+          <li>- 4 Tigers and 20 Goats.</li>
+          <li>- Tigers can jump over goats if there's an empty place following the goat in a straight line.</li>
+        </ul>
+        <br></br>
+
+        <h2 className="text-2xl"><strong>Objective:</strong></h2>
+        <ul>
+          <li>- Tigers win by eating at least 9 goats via jumping.</li>
+          <li>- Goats win by trapping all four Tigers.</li>
+        </ul>
+        <br></br>
+
+        <h2 className="text-2xl"><strong>Gameplay Phases:</strong></h2>
+        <ul>
+          <li>- First Phase: Goats are placed on the board, and Tigers are moved.</li>
+          <li>- Second Phase: Both Goats and Tigers are moved.</li>
+        </ul>
+        <br></br>
+
+        <h2 className="text-2xl"><strong>Winning Conditions:</strong></h2>
+        <ul>
+          <li>- Tigers: Capture at least 9 goats.</li>
+          <li>- Goats: Trap all four Tigers.</li>
+        </ul>
+        <br></br>
+      </div>
+
+      <div className="border-l-8 fixed border-orange-400 vertical-line"></div> {/*Vertical Line*/}
+
+      <div className="ml-40">
+        <h1 className="text-2xl text-orange-400">ABOUT</h1>
+        <br></br>
+        <h2 className="text-2xl"><strong>Game Overview:</strong></h2>
+      
+        <ul>
+          <li>
+            - Also known as Tiger and Goat game.
+          </li>
+          <li>
+            - Originated in Nepal, created by Mandhodari, wife of Ravan.
+          </li>
+          <li>
+            - Played on a five by five point grid.
+          </li>
+        </ul>
+        <br></br>
+
+        <h2 className="text-2xl"><strong>Historical Connection:</strong></h2>
+        <ul>
+          <li>- Mandhodari, highly intelligent and wife of Ravan, is credited with creating the game.</li>
+          <li>- Mandhodari played the game alone in her palace in Lanka.</li>
+        </ul>
+        <br></br>
+
+        <h2 className="text-2xl"><strong>Similarities to Other Games:</strong></h2>
+        <ul>
+          <li>- Similar to the Indian game Aadu puli attam (goat-tiger game) with different boards but same rules.</li>
+          <li>- Game played on a grid like alquerque, an ancestor of draughts or checkers.</li>
+        </ul>
+        <br></br>
+
+        </div>
     </>
   );
 };
