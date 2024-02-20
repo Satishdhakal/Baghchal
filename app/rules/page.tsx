@@ -20,8 +20,6 @@ const page = () => {
                 an open space for the tiger to complete its turn.
               </li>
               <li className="p-2">A tiger cannot jump over another tiger.</li>
-              <li className="p-2"></li>
-
               <li className="p-2">
                 Goats cannot move until all goats have been positioned on the
                 board.{" "}

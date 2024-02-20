@@ -74,7 +74,7 @@ const Canvas = () => {
             data-ripple-light="true"
             onClick={() => handleNewGame()}
           >
-            { isPlaying? "Play Again" : "New Game!"}
+            { isPlaying? "Retry" : "New Game!"}
           </button>
           {
             isPlaying &&
@@ -82,7 +82,7 @@ const Canvas = () => {
               <div className="text-center">
                 <h3 className="text-5xl">Turn</h3>
                 {/* Determine the turn based on statusArr */}
-                {Array.isArray(statusArr[2]) ? <p>TIGER</p> : <p>GOAT</p>}
+                {statusArr[2] ? <p>GOAT</p> : <p>TIGER</p>}
               </div>
             </div>
           }

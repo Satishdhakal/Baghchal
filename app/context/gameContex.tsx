@@ -1,4 +1,10 @@
-import React, { createContext, ReactNode, useEffect, useRef, useState } from "react";
+import React, {
+  createContext,
+  ReactNode,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { Game } from "../baghchal/game";
 
 interface Props {
@@ -38,8 +44,12 @@ const defaultProps: Props = {
 export const GameContext = createContext<Props>(defaultProps);
 
 export const GameProvider = ({ children }: { children: ReactNode }) => {
-  const [statusArr, setStatusArr] = useState<Props["statusArr"]>(defaultProps.statusArr);
-  const [highlightElems, setHighlightElems] = useState<Props["highlightElems"]>(defaultProps.highlightElems);
+  const [statusArr, setStatusArr] = useState<Props["statusArr"]>(
+    defaultProps.statusArr
+  );
+  const [highlightElems, setHighlightElems] = useState<Props["highlightElems"]>(
+    defaultProps.highlightElems
+  );
   const [isPlaying, setIsPlaying] = useState(false);
 
   const game = useRef<Game | null>(null);
@@ -49,15 +59,27 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const handleClick = (pos: number) => {
+    // Return if game hasnt started
+    if (!isPlaying) return;
+
+    let arr1: any[][] = [];
+
+    //if game instance is active
     if (game.current) {
-      game.current.updateGoat(pos);
+      if (game.current.getTurnStatus() === 1) {
+        arr1 = game.current.updateGoat(pos);
+      } else {
+        return arr1 = [[],[],[]]
+      }
+
+      setHighlightElems(arr1);
+      setStatusArr(game.current.getBoardStatus());
     }
   };
 
-
   // This function handles the new game
   // Remove the goats and tiger from the previous game
-  // Reset the highlight nodes 
+  // Reset the highlight nodes
 
   const handleNewGame = () => {
     setIsPlaying(true);
