@@ -55,9 +55,9 @@ const Intro = (props:any) => {
           onClick={() => handleAnimalClick('tiger')}
         >
           <Image
-          src="/tiger-logo.png"
-          width={60}
-          height={60}
+          src="/tiger.png"
+          width={100}
+          height={100}
           alt="tiger"
           className="m-auto"
         />
@@ -70,8 +70,8 @@ const Intro = (props:any) => {
         >
           <Image
           src="/goat.png"
-          width={60}
-          height={60}
+          width={100}
+          height={100}
           alt="goat"
           className="m-auto"
         />

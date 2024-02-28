@@ -5,7 +5,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { Game } from "../baghchal/game";
+import { Game } from "../../baghchal/game";
 
 interface Props {
   handleClick: (pos: number) => void;

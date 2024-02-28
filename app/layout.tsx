@@ -21,7 +21,9 @@ export default function RootLayout({
         <body className={`${inter.className} bg-slate-950`}>
           {/* adding navbar will render on all pages */}
           <Navbar />
-          {children}
+          <div className="pt-20">
+           {children}
+          </div>
         </body>
       </html>
   );

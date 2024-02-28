@@ -35,10 +35,10 @@ body {
 .goat {
   position: absolute;
   transition: margin 0.17s ease-in-out;
-  width: 14.5%;
-  height: 14.5%;
+  width: 20%;
+  height: 20%;
   color: white;
-  transform: translate(-37%, -40%);
+  transform: translate(-38%, -40%);
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   background-image: url(/goat.png);
   background-position: center;
@@ -48,12 +48,12 @@ body {
 .tiger {
   position: absolute;
   transition: margin 0.17s ease-in-out;
-  width: 14.5%;
-  height: 14.5%;
+  width: 20%;
+  height: 20%;
   color: white;
-  transform: translate(-37%, -40%);
+  transform: translate(-38%, -40%);
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  background-image: url(/tiger-logo.png);
+  background-image: url(/tiger.png);
   background-position: center;
   background-size: cover;
 }

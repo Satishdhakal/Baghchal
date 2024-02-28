@@ -2,7 +2,7 @@
 import { Roboto_Condensed } from "next/font/google";
 import { useRef, useEffect, useState } from "react";
 const roboto = Roboto_Condensed({ subsets: ["latin"] });
-import { Game } from "./baghchal/game";
+import { Game } from "../baghchal/game";
 import Canvas from "@/components/game";
 import { GameProvider } from "./context/gameContex";
 import Intro from "@/components/Intro";

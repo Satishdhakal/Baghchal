@@ -1,32 +1,43 @@
-"use client"
-import Image from "next/image"
-import Link from "next/link"
+"use client";
+import Image from "next/image";
+import Link from "next/link";
 
-// I have reved the onClick 
+// I have reved the onClick
 // because this function will be handle from content
 // so no need to worry about this now
 
 const Navbar = () => {
   return (
-    <div className="relative z-20 bg-slate-900 h-20">
-      <Image
-      src="/tiger-logo.png"
-      width={60}
-      height={60}
-      alt="Picture of tiger"
-      className="mx-96 py-2 hover:cursor-pointer"
-    />
+    <div className="fixed top-0 w-screen h-20 z-20 bg-slate-900 px-[12%]">
 
-    <ul className="">
-      <Link href="/" className="relative left-2/3 bottom-12">HOME</Link>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <Link href="/rules" className="relative left-2/3 bottom-12">RULES</Link>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <Link href="/contact" className="relative left-2/3 bottom-12">CONTACT</Link>
-    </ul>
-      
+      <div className="flex items-center justify-between">
+        <Image
+          src="/tiger.png"
+          width={70}
+          height={70}
+          alt="Picture of tiger"
+          className="hover:cursor-pointer"
+        />
+
+        <div>
+
+          <Link href="/" className="p-2 hover:text-orange-400">
+            HOME
+          </Link>
+
+          <Link href="/rules" className="p-2 hover:text-orange-400">
+            RULES
+          </Link>
+
+          <Link href="/contact" className="p-2 hover:text-orange-400">
+            CONTACT
+          </Link>
+
+        </div>
+
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
