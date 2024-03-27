@@ -1,4 +1,4 @@
-# Bhagchal - Nepali Folk Game
+# Baghchal - Nepali Folk Game
 
 ![Bhagchal Logo](https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Pic1146710_lg.jpg/350px-Pic1146710_lg.jpg)
 image source wiki!
