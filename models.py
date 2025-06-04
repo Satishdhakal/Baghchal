@@ -29,13 +29,11 @@ Total_tiger = 4
 class Gameboard: # gamestate
     def __init__(self):
         self.board = self._init_board()
-        print(self.board)
         self.turn = PieceType.SHEEP
         self.sheep_dead = 0
         self.sheep_placed = 0
         self.tiger_position = [(0,0),(0,4),(4,0),(4,4)]
         self.sheep_position = []
-        print(self.sheep_position)
 
         for i in self.tiger_position:
             pass
@@ -46,4 +44,3 @@ class Gameboard: # gamestate
         return {(i,j):PieceType.EMPTY for i in range(5) for j in range(5)}
     
 
-g = Gameboard()
